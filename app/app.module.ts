@@ -10,25 +10,42 @@ import {CommonModule} from '@angular/common'
 import { AppComponent }  from './app.component';
 
 import {FormsModule} from '@angular/forms';
-import {HeroListComponent} from "./hero-list/hero-list.component";
-import {SearchPipe} from "./search.pipe";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+
+import { RouterModule, Routes } from '@angular/router';
+import {ContactComponent} from "./contact/contact.component";
+import {AgendaService} from "./services/agenda.service";
+import {StarredPipe} from "./pipes/starred.pipe";
+
+const routes: Routes = [{
+  path: '',
+  component: DashboardComponent
+}, {
+  path: 'contacts',
+  component: ContactComponent
+}, {
+  path: 'contacts/:id',
+  component: ContactComponent
+}]
 
 @NgModule({
   // imports is the list of dependencies of this module
   // in imports you must put only @NgModule classes
   // browsermodule needed for those application that run in a browser
-  imports:      [ BrowserModule, FormsModule, CommonModule ],
+  imports:      [ BrowserModule, FormsModule, CommonModule, RouterModule.forRoot(routes) ],
 
   // exports: the subset of declarations that should be visible and usable in the component templates of other modules.
 
   // you put here every component you're going to use in your application
   // like Components, Directives and Pipes, also called View Classes
-  declarations: [ AppComponent, HeroListComponent, SearchPipe],
+  declarations: [ AppComponent, DashboardComponent, ContactComponent, StarredPipe ],
 
   // the components list to insert into the DOM
   // for each component in this list a cascade of triggers will be launched
   // every component here will create a tree of components, like the AppComponent
-  bootstrap:    [ AppComponent ]
+  bootstrap:    [ AppComponent ],
+  
+  providers: [AgendaService]
 
   // providers: creators of services that this module contributes to the global collection of services
 })

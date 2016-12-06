@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-app',
   template: `
-<h1>Hero List</h1>
-<input #text type="text" (change)="onChange(text.value)"/>
-<my-hero-list [filters]="filters"></my-hero-list>
+  <router-outlet></router-outlet>
 `
 })
 export class AppComponent  {

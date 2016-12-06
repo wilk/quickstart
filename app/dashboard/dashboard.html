@@ -1,0 +1,60 @@
+<router-outlet></router-outlet>
+<nav class="nav">
+    <div class="nav-left"></div>
+    <div class="nav-center">
+        <div class="nav-item">
+            <h1 class="has-text-centered title is-1">Dashboard</h1>
+        </div>
+    </div>
+    <div class="nav-right">
+        <div class="nav-item">
+            <a class="button" routerLink="/contacts/">
+                <span class="icon">
+                    <i class="fa fa-plus-circle"></i>
+                </span>
+                Add Contact
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="tabs is-centered is-boxed is-medium">
+    <ul>
+        <li [ngClass]="{'is-active': currentTab === 'all'}">
+            <a (click)="onTabClick('all')">
+                <span class="icon is-small"><i class="fa fa-user"></i></span>
+                <span>All</span>
+            </a>
+        </li>
+        <li [ngClass]="{'is-active': currentTab === 'preferred'}">
+            <a (click)="onTabClick('preferred')">
+                <span class="icon is-small"><i class="fa fa-star"></i></span>
+                <span>Preferred</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Country</th>
+            <th>Mobile</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of (contacts | starred:(currentTab === 'preferred'))">
+            <td>{{contact.name}}</td>
+            <td>{{contact.email}}</td>
+            <td>{{contact.address}}</td>
+            <td>{{contact.country}}</td>
+            <td>{{contact.mobile}}</td>
+            <td>
+                <a (click)="onClickStar(contact)"><i [ngClass]="{'fa-star-o': !contact.star, 'fa-star': contact.star}" class="fa"></i></a>
+                <a routerLink="/contacts/{{contact.id}}"><i class="fa fa-info-circle"></i></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
