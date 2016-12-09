@@ -1,11 +1,15 @@
 import {Injectable} from '@angular/core'
+import {Http, Response} from '@angular/http'
 import {Contact} from "../contact";
+import {Observable} from 'rxjs'
+import {ConfigService} from '../services/config.service'
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AgendaService {
     private _contacts: Contact[] = []
 
-    constructor() {
+    constructor(private http: Http, private config: ConfigService) {
         this._contacts = [{
             id: 0,
             name: 'foo',
@@ -30,18 +34,19 @@ export class AgendaService {
         }]
     }
     
-    get contacts(): Contact[] {
-        return this._contacts
+    list(): Observable<Contact[]> {
+        return this.http.get(`${this.config.url}/contacts`)
+            .map((res: Response) => res.json())
     }
     
-    get(contactId: number): Contact {
-        return this._contacts.find(contact => contact.id === contactId)
+    get(contactId: number): Observable<Contact> {
+        return this.http.get(`${this.config.url}/contacts/${contactId}`)
+            .map((res: Response) => res.json())
     }
 
     add(contact: Contact): void {
-        let index = this._contacts.push(contact)
-        contact.id = index
-        console.log(contact)
+        contact.id = Math.round((Math.random() * 100000))
+        this._contacts.push(contact)
     }
     
     remove(contactId: number): void {

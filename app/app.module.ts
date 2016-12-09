@@ -11,11 +11,13 @@ import { AppComponent }  from './app.component';
 
 import {FormsModule} from '@angular/forms';
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {HttpModule} from '@angular/http'
 
 import { RouterModule, Routes } from '@angular/router';
 import {ContactComponent} from "./contact/contact.component";
 import {AgendaService} from "./services/agenda.service";
 import {StarredPipe} from "./pipes/starred.pipe";
+import {ConfigService} from "./services/config.service";
 
 const routes: Routes = [{
   path: '',
@@ -32,7 +34,7 @@ const routes: Routes = [{
   // imports is the list of dependencies of this module
   // in imports you must put only @NgModule classes
   // browsermodule needed for those application that run in a browser
-  imports:      [ BrowserModule, FormsModule, CommonModule, RouterModule.forRoot(routes) ],
+  imports:      [ BrowserModule, FormsModule, CommonModule, HttpModule, RouterModule.forRoot(routes) ],
 
   // exports: the subset of declarations that should be visible and usable in the component templates of other modules.
 
@@ -45,7 +47,7 @@ const routes: Routes = [{
   // every component here will create a tree of components, like the AppComponent
   bootstrap:    [ AppComponent ],
   
-  providers: [AgendaService]
+  providers: [AgendaService, ConfigService]
 
   // providers: creators of services that this module contributes to the global collection of services
 })

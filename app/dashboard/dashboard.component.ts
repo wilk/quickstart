@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {Contact} from '../contact'
 import {AgendaService} from "../services/agenda.service";
+import Response = ts.server.protocol.Response;
 
 @Component({
     moduleId: module.id,
@@ -15,7 +16,8 @@ export class DashboardComponent implements OnInit {
     constructor(private agenda: AgendaService) {}
 
     ngOnInit(): void {
-        this.contacts = this.agenda.contacts
+        this.agenda.list()
+            .subscribe((contacts: Contact[]) => this.contacts = contacts)
     }
     
     onTabClick(tab: string): void {

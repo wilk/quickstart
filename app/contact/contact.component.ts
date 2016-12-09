@@ -23,8 +23,8 @@ export class ContactComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
             if (params['id']) {
-                this.contact = this.agenda.get(parseInt(params['id']))
-                console.log(this.contact)
+                this.agenda.get(parseInt(params['id']))
+                    .subscribe((contact) => this.contact = contact)
             }
         })
     }
