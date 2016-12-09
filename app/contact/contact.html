@@ -1,3 +1,42 @@
-<div>
-    <div>Name: {{contact.name}}</div>
-</div>
+<nav class="nav">
+    <div class="nav-left">
+        <div class="nav-item">
+            <a class="button" routerLink="/">
+                <span class="icon">
+                    <i class="fa fa-arrow-circle-left"></i>
+                </span>
+                Back to dashboard
+            </a>
+        </div>
+    </div>
+    <div class="nav-center">
+        <div class="nav-item">
+            <h1 class="has-text-centered title is-1">Contact</h1>
+        </div>
+    </div>
+    <div class="nav-right"></div>
+</nav>
+<form class="container" (ngSubmit)="onSubmit(contact)" #contactForm="ngForm">
+    <label class="label">Name</label>
+    <p class="control">
+        <input class="input" type="text" placeholder="Contact Name" [(ngModel)]="contact.name" name="name" required>
+    </p>
+    <label class="label">Email</label>
+    <p class="control">
+        <input class="input" type="email" placeholder="Contact Email" [(ngModel)]="contact.email" name="email" required>
+    </p>
+    <label class="label">Country</label>
+    <p class="control">
+        <input class="input" type="text" placeholder="Contact Country" [(ngModel)]="contact.country" name="country">
+    </p>
+    <label class="label">Address</label>
+    <p class="control">
+        <input class="input" type="text" placeholder="Contact Address" [(ngModel)]="contact.address" name="address">
+    </p>
+    <label class="label">Mobile</label>
+    <p class="control">
+        <input class="input" type="tel" placeholder="Contact Mobile" [(ngModel)]="contact.mobile" name="mobile">
+    </p>
+    <button class="button" (click)="onRemove(contact.id)">Remove</button>
+    <button class="button" type="submit" [disabled]="!contactForm.form.valid">Submit</button>
+</form>

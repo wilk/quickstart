@@ -9,7 +9,14 @@ import {AgendaService} from "../services/agenda.service";
     templateUrl: './contact.html'
 })
 export class ContactComponent implements OnInit {
-    private contact: Contact = {}
+    private contact: Contact = {
+        name: '',
+        email: '',
+        country: '',
+        address: '',
+        mobile: '',
+        star: false
+    }
 
     constructor(private route: ActivatedRoute, private agenda: AgendaService) {}
 
@@ -20,5 +27,13 @@ export class ContactComponent implements OnInit {
                 console.log(this.contact)
             }
         })
+    }
+    
+    onSubmit(contact: Contact): void {
+        this.agenda.add(contact)
+    }
+    
+    onRemove(contactId: number): void {
+        this.agenda.remove(contactId)
     }
 }

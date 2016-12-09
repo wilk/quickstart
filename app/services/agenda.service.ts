@@ -38,6 +38,18 @@ export class AgendaService {
         return this._contacts.find(contact => contact.id === contactId)
     }
 
+    add(contact: Contact): void {
+        let index = this._contacts.push(contact)
+        contact.id = index
+        console.log(contact)
+    }
+    
+    remove(contactId: number): void {
+        let index: number = this._contacts.findIndex(contact => contact.id === contactId)
+        
+        if (index !== -1) this._contacts.splice(index, 1) 
+    }
+
     star(contactId: number): void {
         let contact = this._contacts.find(contact => contact.id === contactId)
 
